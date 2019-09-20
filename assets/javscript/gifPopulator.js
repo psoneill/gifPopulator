@@ -1,12 +1,11 @@
 // Initial array of characters
-var characters = ["The Matrix", "The Notebook", "Mr. Nobody", "The Lion King"];
+var characters = ["Bobby Hill", "Jerry Smith", "Carlton Banks", "Jesse Pinkman", "Zoidberg", "Ron Swanson", "Ash Ketchum", "Uncle Jesse", "The Dude", "Randy Marsh",
+  "Spike Spiegel", "Jay and Silent Bob"];
 
-// displayMovieInfo function re-renders the HTML to display the appropriate content
 function displayMovieInfo() {
   var gifSearch = $(this).text();
   var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + gifSearch + "&api_key=BkaUZZWcFij6J7AoQj3WtPb1R2p9O6V9&limit=10";
 
-  // Creates AJAX call for the specific movie button being clicked
   $.ajax({
     url: queryURL,
     method: "GET"
@@ -15,12 +14,14 @@ function displayMovieInfo() {
 
     var results = response.data;
 
-    for (var i = 0; i < results.length; i++) {
+    for (var i = results.length-1; i >= 0; i--) {
       //create new gifCard placeholder
-      var gifCard = $('<div class="col-4 card">');
+      var gifCard = $('<div class="col-lg-3 col-sm-5 card">');
       //create new gifImage placeholder and set sttribute src to the correct url
       var gifImg = $('<img class="card-img-top img-fluid">');
-      gifImg.attr("src", results[i].images.fixed_width.url);
+      gifImg.attr("imgGIF", results[i].images.fixed_width.url);
+      gifImg.attr("imgStill", results[i].images.fixed_width_still.url);
+      gifImg.attr("src", gifImg.attr("imgStill"));
       //create new gifCardBody for the main text area
       var gifCardBody = $('<div class="card-body text-center">');
       //create new gifCardTitle for the gif title
@@ -55,21 +56,25 @@ function renderButtons() {
   }
 }
 
-// This function handles events where the add movie button is clicked
 $("#btnCharacterAdd").on("click", function (event) {
   event.preventDefault();
-  // This line of code will grab the input from the textbox
-  var movie = $("#tbCharacter").val().trim();
+  var character = $("#tbCharacter").val().trim();
+  characters.push(character);
 
-  // The movie from the textbox is then added to our array
-  characters.push(movie);
-
-  // Calling renderButtons which handles the processing of our movie array
+  $("#tbCharacter").val("");
   renderButtons();
 });
 
-// Adding click event listeners to all elements with a class of "movie"
+function imgClick() {
+  if ($(this).attr("src") == $(this).attr("imgStill")) {
+    $(this).attr("src", $(this).attr("imgGIF"));
+  } else {
+    $(this).attr("src", $(this).attr("imgStill"));
+  }
+};
+
 $(document.body).on("click", ".btn-primary", displayMovieInfo);
 
-// Calling the renderButtons function to display the intial buttons
+$(document.body).on("click", "img", imgClick);
+
 renderButtons();
