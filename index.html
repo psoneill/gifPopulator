@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>GIF Populator</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+
+  <div id="mainContainer" class="container-fluid">
+    <div class="row">
+      <div class="col-12 p-2 text-center bg-dark header">
+        <h1 class="text-light">Gif Populator</h1>
+      </div>
+    </div>
+
+    <div class="row">
+      <div id="divButtons"></div>
+    </div>
+
+    <div class="row">
+      <form id="formCharacter">
+        <label for="tbCharacter">Who is your favorite Character?</label>
+        <input type="text" id="tbCharacter"><br>
+
+        <!-- Button triggers new movie to be added -->
+        <input id="btnCharacterAdd" type="submit" value="Add Character">
+      </form>
+    </div>
+
+    <!-- Movies will get dumped Here -->
+    <div class="row justify-content-center">
+      <div class="col-10">
+        <div id="divGifs" class="row justify-content-center">
+
+        </div>
+      </div>
+
+    </div>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="assets/javscript/gifPopulator.js"></script>
+  </div>
+</body>
+
+</html>
